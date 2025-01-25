@@ -56,6 +56,7 @@ public:
     
     // Getter
     int getIdxKontakByNama(std::string nama) const;
+    Kontak getKontakByNama(std::string nama) const;
 };
 
 #endif
