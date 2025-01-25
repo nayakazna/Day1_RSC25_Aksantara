@@ -1,4 +1,7 @@
 #include "classes.h"
+#include <iostream>
+#include <regex>
+
 using namespace std;
 
 int idPhoneBook = 0; // id PhoneBook, di auto-increment
@@ -39,12 +42,28 @@ bool PhoneBook::isKontakFull() const {
     return (countKontak == MAX_KONTAK);
 }
 
-void PhoneBook::tambahKontak(const Kontak& kontak) {
+bool PhoneBook::isKontakExist(string nama) const {
+    return getIdxKontakByNama(nama) != -1;
+}
+
+bool PhoneBook::isNomorValid(string nomor) const {
+    regex nomorRegex(R"(^\+?\d{7,15}$)"); // ini regex buat nomor telepon, '+' opsional buat kode negara
+    return regex_match(nomor, nomorRegex);
+}
+
+bool PhoneBook::tambahKontak(const Kontak& kontak) {
+    // Periksa kontaknya formatnya valid gak
+    if (!isNomorValid(kontak.nomor)) {
+        cout << "Nomor telepon harus berupa angka semua, Cik!" << endl;
+        return false;
+    }
+    
     // Cuma tambah kalo kontak belum ada di PhoneBook
     if (getIdxKontakByNama(kontak.nama) != -1) {
         cout << "Kontak yang namanya " << kontak.nama << " udah ada, Cik!" << endl;
-        return;
+        return false;
     }
+    // Kalo PhoneBook udah penuh, geser kiri semua kontak
     if (isKontakFull()) {
         // Geser kiri semua kontak
         for (int i = 0; i < MAX_KONTAK-1; i++) {
@@ -55,6 +74,7 @@ void PhoneBook::tambahKontak(const Kontak& kontak) {
     else {
         kontaks[countKontak++] = kontak;
     }
+    return true;
 }
 
 void PhoneBook::printSemuaKontak() const {
@@ -117,6 +137,14 @@ void PhoneBook::hapusSemuaKontak() {
     }
     countKontak = 0;
     cout << "Semua kontak berhasil dihapus, Cik!" << endl;
+}
+
+int PhoneBook::getId() const {
+    return id;
+}
+
+int PhoneBook::getCountKontak() const {
+    return countKontak;
 }
 
 int PhoneBook::getIdxKontakByNama(string nama) const {

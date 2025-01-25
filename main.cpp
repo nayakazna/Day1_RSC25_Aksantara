@@ -43,7 +43,7 @@ int main() {
             if (nama == "") {
                 cout << "Nama kontak nggak boleh kosong, Pak Bell!" << endl;
                 cout << "Silakan coba lagi!" << endl;
-                this_thread::sleep_for(chrono::seconds(1));
+                this_thread::sleep_for(chrono::seconds(2));
                 continue;
             }
             if (phoneBook.getIdxKontakByNama(nama) != -1) {
@@ -51,7 +51,7 @@ int main() {
                 cout << "Silakan coba lagi!" << endl;
                 
                 nama = "";
-                this_thread::sleep_for(chrono::seconds(1));
+                this_thread::sleep_for(chrono::seconds(2));
                 continue;
             }
 
@@ -61,7 +61,15 @@ int main() {
             if (nomor == "") {
                 cout << "Nomor telepon nggak boleh kosong, Pak Bell! Gimana mau nelpon deh kalo kosong?" << endl;
                 cout << "Silakan coba lagi!" << endl;
-                this_thread::sleep_for(chrono::seconds(1));
+                this_thread::sleep_for(chrono::seconds(2));
+                continue;
+            }
+            if (phoneBook.getIdxKontakByNama(nama) != -1) {
+                cout << "Kontak dengan nomor " << nomor << " sudah ada, Pak Bell!" << endl;
+                cout << "Silakan coba lagi!" << endl;
+                
+                nomor = "";
+                this_thread::sleep_for(chrono::seconds(2));
                 continue;
             }
 
@@ -71,7 +79,7 @@ int main() {
             if (alamat == "") {
                 cout << "Alamat nggak boleh kosong, Pak Bell!" << endl;
                 cout << "Silakan coba lagi!" << endl;
-                this_thread::sleep_for(chrono::seconds(1));
+                this_thread::sleep_for(chrono::seconds(2));
                 continue;
             }
 
@@ -81,7 +89,13 @@ int main() {
 
             // CREATE
             Kontak kontak(nama, nomor, alamat, power);
-            phoneBook.tambahKontak(kontak);
+            bool nomorValid = phoneBook.tambahKontak(kontak);
+
+            if (!nomorValid) {
+                cout << "Silakan coba lagi!" << endl;
+                this_thread::sleep_for(chrono::seconds(2));
+                continue;
+            }
 
             // OUTPUT
             cout << "Kontaknya si " << nama << " berhasil ditambahkan, Pak Bell!" << endl;
@@ -115,7 +129,7 @@ int main() {
             if (idx == -1) {
                 cout << "Kontak dengan nama " << nama << " nggak ada, Pak Bell!" << endl;
                 cout << "Silakan coba lagi!" << endl;
-                this_thread::sleep_for(chrono::seconds(1));
+                this_thread::sleep_for(chrono::seconds(2));
                 continue;
             }
 
@@ -159,7 +173,7 @@ int main() {
             if (idx == -1) {
                 cout << "Kontak dengan nama " << nama << " nggak ada, Pak Bell!" << endl;
                 cout << "Silakan coba lagi!" << endl;
-                this_thread::sleep_for(chrono::seconds(1));
+                this_thread::sleep_for(chrono::seconds(2));
                 continue;
             }
 
