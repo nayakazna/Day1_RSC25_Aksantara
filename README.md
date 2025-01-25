@@ -1,8 +1,8 @@
-# PhoneBook Tuan Bell 📞
+# PhoneBook Tuan Bell
 
 Sistem manajemen kontak sederhana dalam C++ dengan antarmuka CLI yang dibuat untuk mengelola kontak Pak Bell setelah kehilangan buku kontaknya akibat kedzaliman Fatui Harbinger.
 
-## Fitur ✨
+## Fitur
 - **Operasi CRUD**:
   - Buat, cetak, perbarui, dan hapus kontak
   - Hapus semua kontak sekaligus ketika keluar dari program dengan perintah `EXIT`
